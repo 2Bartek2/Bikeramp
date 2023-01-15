@@ -2,6 +2,7 @@ import { Module } from '@nestjs/common';
 import { ConfigModule } from '@nestjs/config';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { TypeOrmConfig } from './config/database.config';
+import { TripModule } from './trip/trip.module';
 
 @Module({
   imports: [
@@ -10,6 +11,7 @@ import { TypeOrmConfig } from './config/database.config';
       isGlobal: true,
     }),
     TypeOrmModule.forRoot(TypeOrmConfig),
+    TripModule,
   ],
   controllers: [],
   providers: [],

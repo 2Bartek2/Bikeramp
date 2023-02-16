@@ -1,4 +1,4 @@
-import { Body, Controller, Post } from '@nestjs/common';
+import { Body, Controller, HttpCode,  Post } from "@nestjs/common";
 import { TripDto } from './dto/trip.dto';
 import { TripService } from './trip.service';
 
@@ -6,7 +6,8 @@ import { TripService } from './trip.service';
 export class TripController {
   constructor(private readonly tripService: TripService) {}
   @Post()
+  @HttpCode(201)
   create(@Body() tripDto: TripDto) {
-    return this.tripService.create(tripDto);
+     this.tripService.create(tripDto);
   }
 }

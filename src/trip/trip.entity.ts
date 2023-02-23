@@ -1,4 +1,10 @@
-import { Column, CreateDateColumn, Entity, PrimaryGeneratedColumn, UpdateDateColumn } from "typeorm";
+import {
+  Column,
+  CreateDateColumn,
+  Entity,
+  PrimaryGeneratedColumn,
+  UpdateDateColumn,
+} from 'typeorm';
 @Entity()
 export class Trip {
   @PrimaryGeneratedColumn()
@@ -7,14 +13,14 @@ export class Trip {
   start: string;
   @Column({ length: 256 })
   finish: string;
-  @Column({type:'float'})
-  distance : number
-  @Column({type:'float'})
-  pricePerKm: number
-  @Column({type:'float'})
-  tripPrice: number
+  @Column({ type: 'decimal', precision: 10, scale: 2 })
+  distance: number;
+  @Column({ type: 'decimal', precision: 10, scale: 2 })
+  pricePerKm: number;
+  @Column({ type: 'decimal', precision: 10, scale: 2 })
+  tripPrice: number;
   @CreateDateColumn()
-  createAt : Date
+  createAt: Date;
   @UpdateDateColumn()
-  updateAt : Date
+  updateAt: Date;
 }

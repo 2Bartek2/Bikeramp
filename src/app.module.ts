@@ -4,16 +4,17 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { TypeOrmConfig } from './config/database.config';
 import { TripModule } from './trip/trip.module';
 import { GoogleMapsModule } from './google-maps/google-maps.module';
+import { StatisticModule } from './statistic/statistic.module';
 
 @Module({
   imports: [
     ConfigModule.forRoot({
-      envFilePath: 'env',
       isGlobal: true,
     }),
     TypeOrmModule.forRoot(TypeOrmConfig),
     TripModule,
     GoogleMapsModule,
+    StatisticModule,
   ],
   controllers: [],
   providers: [],

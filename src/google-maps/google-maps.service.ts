@@ -1,5 +1,9 @@
-import { Injectable } from '@nestjs/common';
-import { Client } from '@googlemaps/google-maps-services-js';
+import { Injectable, InternalServerErrorException } from '@nestjs/common';
+import {
+  Client,
+  Status,
+  TravelMode,
+} from '@googlemaps/google-maps-services-js';
 import { ConfigService } from '@nestjs/config';
 
 @Injectable()
@@ -9,14 +13,20 @@ export class GoogleMapsService extends Client {
     super();
   }
 
-  async getCoordinates(address: { origins; destinations; mode }) {
+  async getCoordinates(address: {
+    origins: string[];
+    destinations: string[];
+    mode: TravelMode;
+  }): Promise<number | undefined> {
     const googleRes = await this.distancematrix({
       params: {
         ...address,
         key: this.accessKey,
       },
     });
-    const distance = googleRes?.data?.rows[0]?.elements[0]?.distance?.value
-    return distance
+    if (googleRes.data.rows[0].elements[0].status !== Status.OK) {
+      throw new InternalServerErrorException('Something went wrong');
+    }
+    return googleRes.data?.rows?.[0]?.elements?.[0]?.distance.value;
   }
 }

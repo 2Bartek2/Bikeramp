@@ -1,0 +1,19 @@
+version: '3.9'
+
+services:
+
+  db:
+    image: postgres:14-alpine
+    ports:
+      - 5434:5432
+    restart: always
+    environment:
+      POSTGRES_USER: user
+      POSTGRES_PASSWORD: password
+      POSTGRES_DB: bikeramp-db
+    volumes:
+      - ./dbData:/var/lib/postgresql/data
+volumes:
+   dbData:
+     driver: local
+

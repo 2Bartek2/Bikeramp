@@ -24,7 +24,7 @@ export class GoogleMapsService extends Client {
         key: this.accessKey,
       },
     });
-    if (googleRes.data.rows[0].elements[0].status !== Status.OK) {
+    if (googleRes.data?.rows?.[0]?.elements?.[0]?.status !== Status.OK) {
       throw new InternalServerErrorException('Something went wrong');
     }
     return googleRes.data?.rows?.[0]?.elements?.[0]?.distance.value;

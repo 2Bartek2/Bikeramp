@@ -40,7 +40,7 @@ export class TripService {
       tripPrice,
     });
     if (!trip) {
-      throw new NotFoundException('Trip doesnt exist');
+      throw new NotFoundException(`Trip doesn't exist`);
     }
     await this.tripRepository.save(trip);
   }

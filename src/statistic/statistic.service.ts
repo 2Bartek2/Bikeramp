@@ -7,24 +7,32 @@ import * as moment from 'moment';
 @Injectable()
 export class StatisticService {
   constructor(private readonly tripService: TripService) {}
-  async weekStatistic(): Promise<{}> {
-    const data = await this.tripService.weekStatistic();
-    return data.map((oneDayStat: WeekStatistic) => {
+  async weekStatistic(): Promise<{
+    totalDistance: string,
+    totalPrice: string
+  }> {
+    const [data] = await this.tripService.weekStatistic();
+
       return {
-        totalDistance: `${oneDayStat.totalDistance} KM`,
-        totalPrice: `${oneDayStat.totalPrice} PLN`,
-      };
-    });
+        totalDistance: `${data.totalDistance} KM`,
+        totalPrice: `${data.totalPrice} PLN`,
+      }
+    ;
   }
 
-  async monthStatistic(): Promise<{}> {
+  async monthStatistic(): Promise<{
+    day: string,
+    totalDistance: string,
+    avgRide: string,
+    avgPrice: string
+  }[]> {
     const data = await this.tripService.monthStatistic();
     return data.map((oneDayStat: MonthStatistic) => {
       return {
         day: moment(oneDayStat.day).format('MMM, Do'),
-        totalDistance: `${oneDayStat.totalDistance} km`,
+        totalDistance: `${oneDayStat.totalDistance} KM`,
         avgRide: `${oneDayStat.avgRide} KM`,
-        avqPrice: `${oneDayStat.avgPrice} PLN`,
+        avgPrice: `${oneDayStat.avgPrice} PLN`,
       };
     });
   }
